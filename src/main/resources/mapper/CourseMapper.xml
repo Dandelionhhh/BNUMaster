@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：该mapper.xml映射文件的唯一标识符-->
+<mapper namespace="com.bnumaster.mapper.CourseMapper">
+    <!--查询全部课程信息-->
+   <select id="getCourseList" resultMap="CourseResult">
+       select * from course
+   </select>
+
+    <resultMap id="CourseResult" type="com.bnumaster.entity.base.Course">
+        <result property="institutionId" column="institution_id"/>
+        <result property="authorId" column="author_id"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="courseType" column="course_type"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="addressId" column="address_id"/>
+        <result property="enrollAdditional" column="enroll_additional"/>
+        <result property="suitableForCrowd" column="suitable_for_crowd"/>
+        <result property="travelDays" column="travel_days"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--增加课程-->
+    <insert id="postCourse" parameterType="com.bnumaster.entity.base.Course">
+        insert into course(institution_id,author_id,title,sub_title,status,attribute,
+    description,cover,course_type,price,start_time,end_time,address_id,details,scheduling,
+    notice,enroll_additional,resources,suitable_for_crowd,options,travel_days,
+    create_time,update_time) values(#{institutionId},#{authorId},#{title},#{subTitle},#{status},#{attribute},
+    #{description},#{cover},#{courseType},#{price},#{startTime, javaType=Date, jdbcType=INTEGER},#{endTime, javaType=Date, jdbcType=INTEGER},
+    #{addressId},#{details},#{scheduling}, #{notice},#{enrollAdditional},#{resources},#{suitableForCrowd},#{options},#{travelDays},
+    #{createTime, javaType=Date, jdbcType=INTEGER},#{updateTime, javaType=Date, jdbcType=INTEGER})
+    </insert>
+    
+    <!--根据id获取课程-->
+    <select id="getCourse" parameterType="int" resultMap="CourseResult">
+        select * from course where id=#{id}
+    </select>
+
+    <!--根据id更新课程-->
+    <update id="putCourse" parameterType="com.bnumaster.entity.base.Course">
+        update course set institution_id=#{institutionId},author_id=#{authorId},title=#{title},sub_title=#{subTitle},status=#{status},
+    attribute=#{attribute},description=#{description},cover=#{cover},course_type=#{courseType},price=#{price},start_time=#{startTime, javaType=Date, jdbcType=INTEGER},
+    end_time=#{endTime, javaType=Date, jdbcType=INTEGER},address_id=#{addressId},details=#{details},scheduling=#{scheduling},notice=#{notice},enroll_additional=#{enrollAdditional},
+    resources=#{resources},suitable_for_crowd=#{suitableForCrowd},options=#{options},travel_days=#{travelDays},create_time=#{createTime, javaType=Date, jdbcType=INTEGER},
+    update_time=#{updateTime, javaType=Date, jdbcType=INTEGER}
+    </update>
+
+    <!--根据id删除课程-->
+    <delete id="deleteCourse" parameterType="int">
+        delete from course where id=#{id}
+    </delete>
+
+    <!--根据id查找课程封面-->
+    <select id="findImageById" parameterType="int" resultType="String">
+        select cover from course where id=#{id}
+    </select>
+</mapper>

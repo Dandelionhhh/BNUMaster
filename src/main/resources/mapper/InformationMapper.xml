@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：该mapper.xml映射文件的唯一标识符-->
+<mapper namespace="com.bnumaster.mapper.InformationMapper">
+   <!--查询全部咨询-->
+    <select id="getInformationList" resultMap="InformationResult">
+        select * from information
+    </select>
+    
+    <resultMap id="InformationResult" type="com.bnumaster.entity.base.Information">
+        <result property="authorId" column="author_id"/>
+        <result property="institutionId" column="institution_id"/>
+        <result property="informationType" column="information_type"/>
+        <result property="abst" column="abstract"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--增加咨询-->
+    <select id="postInformation" parameterType="com.bnumaster.entity.base.Information">
+        insert into information(author_id,institution_id,attribute,status,information_type,title,cover,abstract,content,resources,
+    create_time,update_time)values (#{authorId},#{institutionId},#{attribute},#{status},#{informationType},#{title},#{cover},
+    #{abst},#{content},#{resources},#{createTime, javaType=Date, jdbcType=INTEGER},#{updateTime, javaType=Date, jdbcType=INTEGER})
+    </select>
+
+    <!--根据id获取咨询-->
+    <select id="getInformation" parameterType="int" resultMap="InformationResult">
+        select * from information where id=#{id}
+    </select>
+
+    <!--更新咨询-->
+    <update id="putInformation" parameterType="com.bnumaster.entity.base.Information">
+        update information set author_id=#{authorId},institution_id=#{institutionId},attribute=#{attribute},status=#{status},
+        information_type=#{informationType},title=#{title},cover=#{cover},abstract=#{abst},content=#{content},resources=#{resources},
+        create_time = #{createTime},update_time=#{updateTime} where id=#{id}
+    </update>
+
+    <!--删除咨询-->
+    <delete id="deleteInformation" parameterType="int">
+        delete from information where id=#{id}
+    </delete>
+
+    <!--根据id查找封面-->
+    <select id="findImageById" resultType="String">
+        select cover from information where id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace：该mapper.xml映射文件的唯一标识符-->
+    <!--查询全部学生-->
+<mapper namespace="com.bnumaster.mapper.AccountMapper">
+    <select id="getAccountList" resultMap="AccountResult">
+        select * from account
+    </select>
+
+    <resultMap id="AccountResult" type="com.bnumaster.entity.base.Account">
+        <!--指定类中的属性 和 表中的字段的对应关系-->
+        <result property="phoneValidated" column="phone_validated"/>
+        <result property="`cleanPassWord" column="`clean_password"/>
+        <result property="emailValidated" column="email_validated"/>
+        <result property="addressId" column="address_id"/>
+        <result property="idCode" column="id_code"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="parentId" column="parent_id"/>
+    </resultMap>
+
+    <!--增加用户-->
+    <insert id="postAccount" parameterType="com.bnumaster.entity.base.Account">
+        insert into account(nickname,role,phone,phone_validated,password,clean_password,email,email_validated,username,modified,avator,
+    motto,address_id,realname,id_code,options,create_time,update_time,parent_id)values(#{nickName},#{role},#{phone},#{phoneValidated},
+    #{passWord},#{cleanPassWord},#{email},#{emailValidated},#{userName},#{modified},#{avator},#{motto},#{addressId},#{realName},#{idCode},
+    #{options},#{createTime, javaType=Date, jdbcType=INTEGER},#{updateTime, javaType=Date, jdbcType=INTEGER},#{parentId})
+    </insert>
+
+    <!--根据id获取用户-->
+    <select id="getAccount" parameterType="int" resultMap="AccountResult">
+        select * from account where id = #{id}
+    </select>
+
+    <!--根据id更新用户-->
+    <update id="putAccount" parameterType="com.bnumaster.entity.base.Account">
+        update account set nickname=#{nickName},role=#{role},phone=#{phone},phone_validated=#{phoneValidated},password=#{passWord},
+        clean_password=#{cleanPassWord},email=#{email},email_validated=#{emailValidated},username=#{userName},modified=#{modified},
+        avator=#{avator},motto=#{motto},address_id=#{addressId},realname=#{realName},id_code=#{idCode},options=#{options},
+        create_time=#{createTime},update_time=#{updateTime},parent_id=#{parentId} where id=#{id}
+    </update>
+
+    <!--根据id删除用户-->
+    <delete id="deleteAccount" parameterType="int">
+        delete from account where id=#{id}
+    </delete>
+
+    <!--根据id获取图片-->
+    <select id="findImageById" resultType="String">
+        select avator from account where id = #{id}
+    </select>
+</mapper>
