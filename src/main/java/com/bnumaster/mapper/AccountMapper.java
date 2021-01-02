@@ -1,12 +1,13 @@
 package com.bnumaster.mapper;
 
 import com.bnumaster.entity.base.Account;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
-
+@Mapper
 @Repository
 public interface AccountMapper {
     //查询全部用户

@@ -6,7 +6,6 @@ import com.bnumaster.entity.params.AccountParams;
 import com.bnumaster.service.IAccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +33,8 @@ public class AccountController {
 
     @PostMapping("/postAccount")
     @ApiOperation(value = "创建用户", notes = "根据Account对象创建用户")
-    public String postAccount(@Validated AccountParams params,
-                              @RequestPart @ApiParam(value = "avator") MultipartFile file){
+    public String postAccount(AccountParams params,
+                              @RequestPart @RequestParam(value = "avator") MultipartFile file){
         Account account = new Account();
         account.setNickName(params.getNickName());
         account.setRole(1);
@@ -77,7 +76,7 @@ public class AccountController {
     @PutMapping("/putAccount")
     @ApiOperation(value = "更新用户详细信息", notes = "根据url的id来指定更新对象，并根据传过来的account信息来更新用户详细信息")
     public String putAccount(@Validated AccountParams params,
-                             @RequestPart @ApiParam(value = "avator") MultipartFile file){
+                             @RequestPart @RequestParam(value = "avator") MultipartFile file){
         int id = params.getId();
         Account account = accountService.getAccount(id);
         account.setNickName(params.getNickName());

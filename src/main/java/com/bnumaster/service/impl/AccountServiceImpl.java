@@ -15,6 +15,7 @@ public class AccountServiceImpl implements IAccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+
     @Override
     public List<Account> getAccountList() {
         return accountMapper.getAccountList();

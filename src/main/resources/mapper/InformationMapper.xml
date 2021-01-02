@@ -44,7 +44,7 @@
     </delete>
 
     <!--根据id查找封面-->
-    <select id="findImageById" resultType="String">
+    <select id="findImageById" parameterType="int" resultType="String">
         select cover from information where id=#{id}
     </select>
 </mapper>

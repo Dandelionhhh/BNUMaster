@@ -49,7 +49,8 @@
     </delete>
 
     <!--根据id获取图片-->
-    <select id="findImageById" resultType="String">
+    <select id="findImageById" parameterType="int" resultType="String">
         select avator from account where id = #{id}
     </select>
+
 </mapper>

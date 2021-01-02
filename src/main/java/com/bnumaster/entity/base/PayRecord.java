@@ -1,9 +1,10 @@
 package com.bnumaster.entity.base;
 
-import com.sun.istack.internal.NotNull;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
